@@ -1,7 +1,10 @@
-# Collections: Tableaux, liste, tuples
+# Collections: Listes, tuples, tableaux, dictionnaires, slices, set
 # Tuples (): immutable -> ne peut pas être modifié
 # Liste []: mutable -> peut être modifié
-# Tableaux: mutable -> peut être modifié
+# Tableaux : mutable -> peut être modifié
+# Slice: mutable -> peut être modifié
+# Dictionnaire {}: mutable -> peut être modifié
+# Set: mutable -> peut être modifié
 
 # Le tuple utilise moins de mémoire que la liste, donc plus rapide
 
@@ -176,3 +179,62 @@ for l in tableau:
     print(ligne)
 
 print()
+
+# Exemple de dictionnaire
+print("Exemple de dictionnaire")
+
+# clef -> valeur
+p = {"nom": "Dupont", "prenom": "Jean", "age": 25}
+print(p)
+print(p["prenom"], p["nom"], p["age"]) # Affiche la valeur de la clef "nom". Si la clef n'existe pas, une erreur est retournée. print(p.get("nom")) -> Affiche None si la clef n'existe pas
+print(p["prenom"])
+print(p["age"])
+
+repertoire = {"Jean Dupont": {"age": 25, "telephone": "418-123-4561"},
+              "Marc Dupont": {"age": 30, "telephone": "418-123-4562"},
+              "Pierre Dupont": {"age": 35, "telephone": "418-123-4563"},
+              "Paul Dupont": {"age": 40, "telephone": "418-123-4564"},
+}
+
+for clef in repertoire:
+    print(clef, ":", repertoire[clef]["telephone"])
+
+print()
+
+# Exemple de dictionnaire avec des fonctions
+print("Exemple de dictionnaire avec des fonctions")
+
+def afficher_personne(personne):
+    print("Nom:", personne["nom"])
+    print("Prénom:", personne["prenom"])
+    print("Age:", personne["age"])
+
+def obtenir_information():
+    nom = input("Entrez votre nom: ")
+    prenom = input("Entrez votre prénom: ")
+    age = input("Entrez votre âge: ")
+    return {"nom": nom, "prenom": prenom, "age": age}
+
+def afficher_information(personne):
+    print("Nom:", personne["nom"])
+    print("Prénom:", personne["prenom"])
+    print("Age:", personne["age"])
+
+personne = obtenir_information()
+afficher_information(personne)
+
+print()
+
+# Exemple de set. Utilisé pour enlever les doublons. Il n'y a pas d'ordre dans un set
+print("Exemple de set")
+
+noms = ["Jean", "Marc", "Pierre", "Paul", "Jacques", "Marie", "Lucie", "Jean", "Marc", "Pierre", "Paul", "Jacques", "Marie", "Lucie"]
+set_noms = set(noms)
+print(set_noms)
+
+split_noms = "Jean,Marc,Pierre,Paul,Jacques,Marie,Lucie".split(",")
+set_split_noms = set(split_noms)
+print(set_split_noms)
+
+join_noms = ",".join(set_split_noms)
+print(join_noms)
