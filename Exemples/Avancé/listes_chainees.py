@@ -24,6 +24,7 @@ class LinkedList:
     def __init__(self, head):
         self.head = head
 
+    # Afficher le nombre de noeuds d'une liste chainée
     def get_nb_nodes(self):
         node = self.head
         nb_nodes = 0
@@ -32,6 +33,7 @@ class LinkedList:
             node = node.next
         return nb_nodes
     
+    # Afficher toutes les données d'une liste chainée
     def get_all_data_as_list(self):
         node = self.head
         data = []
@@ -39,6 +41,28 @@ class LinkedList:
             data.append(node.data)
             node = node.next
         return data
+    
+    # Insertion d'un élément dans une liste chainée
+    def insert_node(self, node, index):
+        if index == 0:
+            node.next = self.head
+            self.head = node
+        else:
+            previous_node = self.head
+            for i in range(index-1):
+                previous_node = previous_node.next
+            node.next = previous_node.next
+            previous_node.next = node
+
+    # Suppression d'un élément dans une liste chainée
+    def remove_node(self, index):
+        if index == 0:
+            self.head = self.head.next
+        else:
+            previous_node = self.head
+            for i in range(index-1):
+                previous_node = previous_node.next
+            previous_node.next = previous_node.next.next
     
 class Node:
     def __init__(self, data):
@@ -63,36 +87,14 @@ print("Toutes les données:", linked_list.get_all_data_as_list())
 
 print()
 
-# Insertion d'un élément dans une liste chainée
-def insert_node(linked_list, node, index):
-    if index == 0:
-        node.next = linked_list.head
-        linked_list.head = node
-    else:
-        previous_node = linked_list.head
-        for i in range(index-1):
-            previous_node = previous_node.next
-        node.next = previous_node.next
-        previous_node.next = node
-
 node5 = Node("Hello")
-insert_node(linked_list, node5, 2)
+linked_list.insert_node(node5, 2)
 print("Nombre de noeuds:", linked_list.get_nb_nodes())
 print("Toutes les données:", linked_list.get_all_data_as_list())
 
 print()
 
-# Suppression d'un élément dans une liste chainée
-def remove_node(linked_list, index):
-    if index == 0:
-        linked_list.head = linked_list.head.next
-    else:
-        previous_node = linked_list.head
-        for i in range(index-1):
-            previous_node = previous_node.next
-        previous_node.next = previous_node.next.next
-
-remove_node(linked_list, 2)
+linked_list.remove_node(2)
 print("Nombre de noeuds:", linked_list.get_nb_nodes())
 print("Toutes les données:", linked_list.get_all_data_as_list())
 
