@@ -1,4 +1,4 @@
-# Calculation du taux de change moyen sur une période donnée
+# Calcul du taux de change moyen sur une période donnée
 def compute_moving_average_for_rates_data(rates, nb_days_interval):
     sum = 0
     averages = []

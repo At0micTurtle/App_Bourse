@@ -37,7 +37,7 @@ def get_and_manage_rates_data(assets, date_start, date_end):
         json_rates = load_json_data_from_file(data_filename)
         rates = json.loads(json_rates)
 
-    # Si le fichier n'existe pas ou si les données de taux de change ne couvrent pas la période demandée, on récupère les données depuis l'API CoinAPI
+    # Si le fichier n'existe pas ou si les données de taux de change ne couvrent pas la période demandée, on récupère les données depuis l'API
     if len(rates) > 0:
         saved_data_date_start_str = rates[0]["date"]
         saved_data_date_end_str = rates[-1]["date"]

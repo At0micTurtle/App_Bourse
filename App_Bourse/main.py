@@ -7,7 +7,7 @@ from data_processing import *
 # Initialisation de la date de début et de fin
 date_start = date(2018, 1, 1)
 date_end = date(2023, 4, 30)
-#date_end = date.today() - timedelta(1)
+#date_end = date.today() - timedelta(1) # Pour avoir la date d'hier
 
 # Initialisation des actifs
 assets = "ETH/USD"
