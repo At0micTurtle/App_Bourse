@@ -2,7 +2,7 @@ import requests
 import json
 
 from datetime import timedelta
-from api_config import API_KEY, BASE_URL
+from api_config import API_KEY
 
 headers = {"X-CoinAPI-Key" : API_KEY}
 
