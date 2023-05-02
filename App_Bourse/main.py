@@ -6,8 +6,8 @@ from data_processing import *
 
 # Initialisation de la date de début et de fin
 date_start = date(2018, 1, 1)
-date_end = date(2023, 4, 30)
-#date_end = date.today() - timedelta(1) # Pour avoir la date d'hier
+#date_end = date(2023, 4, 30)
+date_end = date.today() - timedelta(1) # Pour avoir la date d'hier
 
 # Initialisation des actifs
 assets = "ETH/USD"
@@ -33,8 +33,8 @@ initial_wallet = 1000
 final_wallet = compute_buy_and_sell_gains(initial_wallet, rates, buy_and_sell_points)
 
 # Affichage des résultats
-print("Date de début:", date_start, "avec un portefeuille de", str(round(initial_wallet, 2)) + "$")
-print("Date de fin:", date_end, "avec un portefeuille de", str(round(final_wallet, 2)) + "$")
+print("Date de début:", date_start, "avec un portefeuille de", str(round(initial_wallet, 2)) + "$.")
+print("Date de fin:", date_end, "avec un portefeuille de", str(round(final_wallet, 2)) + "$.")
 
 # Calcul des moyennes mobiles pour l'affichage. ma20 représente la moyenne mobile sur 20 jours et ma100 sur 100 jours
 ma20 = compute_moving_average_for_rates_data(rates, 20)

@@ -64,13 +64,13 @@ def compute_buy_and_sell_gains(initial_wallet, rates, buy_and_sell_points):
         else:
             current_wallet = shares * rate_value
             shares = 0
-            print("Le", point[0] + ", je vend pour", str(round(current_wallet, 2)) + "$")
+            print("Le", point[0] + ", je vend pour", str(round(current_wallet, 2)) + "$.")
             if current_wallet > last_wallet:
                 percent = (current_wallet - last_wallet) * 100 / last_wallet
-                print("Soit un gain de", str(round(percent, 2)) + "%")
+                print("Soit un gain de", str(round(percent, 2)) + "%.")
             else:
                 percent = (last_wallet - current_wallet) * 100 / last_wallet
-                print("Soit une perte de", str(round(percent, 2)) + "%")
+                print("Soit une perte de", str(round(percent, 2)) + "%.")
             print()
 
     return current_wallet
