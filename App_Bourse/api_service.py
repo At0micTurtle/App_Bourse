@@ -1,8 +1,15 @@
+"""
+Créer le 29/04/2023
+Par: Carl Trépanier
+Descritpion: Prise de données de l'API
+Révisé le: 03/05/2023
+"""
+
 import requests
 import json
 
 from datetime import timedelta
-from api_config import API_KEY
+from api_config import API_KEY, BASE_URL
 
 headers = {"X-CoinAPI-Key" : API_KEY}
 
@@ -27,7 +34,7 @@ def api_get_exchange_rates(assets, start_date, end_date):
     start_date_str = start_date.strftime("%Y-%m-%d")
     end_date_str = (end_date + timedelta(1)).strftime("%Y-%m-%d")
 
-    url = "https://rest.coinapi.io/v1/exchangerate/" + assets + "/history?period_id=1DAY&time_start=" + start_date_str + "T00:00:00&time_end=" + end_date_str + "T00:00:00"
+    url = BASE_URL + "v1/exchangerate/" + assets + "/history?period_id=1DAY&time_start=" + start_date_str + "T00:00:00&time_end=" + end_date_str + "T00:00:00"
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         data = json.loads(response.text)
@@ -82,7 +89,6 @@ def filter_inconsistent_rate_values(input_rates):
             filtered_rates.append(rate)
         else:
             filtered_rates.append(rate)
-
     return filtered_rates
 
 # Retourne les données filtrées

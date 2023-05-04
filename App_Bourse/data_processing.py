@@ -1,3 +1,10 @@
+"""
+Créer le 29/04/2023
+Par: Carl Trépanier
+Descritpion: Fonctions de traitement des données
+Révisé le: 03/05/2023
+"""
+
 # Calcul du taux de change moyen sur une période donnée
 def compute_moving_average_for_rates_data(rates, nb_days_interval):
     sum = 0
@@ -13,7 +20,6 @@ def compute_moving_average_for_rates_data(rates, nb_days_interval):
         else:
             average = sum / (i + 1)
         averages.append({"date": rate["date"], "value": average})
-
     return averages
 
 # Calcul des points d'achat et de vente à partir de deux moyennes mobiles

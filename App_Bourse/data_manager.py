@@ -1,3 +1,10 @@
+"""
+Créer le 29/04/2023
+Par: Carl Trépanier
+Descritpion: Gestion des données
+Révisé le: 03/05/2023
+"""
+
 import json
 
 from datetime import date, datetime, timedelta

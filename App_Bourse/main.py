@@ -1,3 +1,10 @@
+"""
+Créer le 29/04/2023
+Par: Carl Trépanier
+Descritpion: Programme principal
+Révisé le: 03/05/2023
+"""
+
 import matplotlib.pyplot as plt
 
 from datetime import date, datetime, timedelta
@@ -28,13 +35,20 @@ for ma_interval in ma_intervals:
 # Calcul des points d'achat et de vente
 buy_and_sell_points = compute_buy_and_sell_points_from_ma(ma_list[0][0], ma_list[1][0], 1)
 
-# Calcul des gains
+# Calcul des gains avec un portefeuille de départ de 1000$
 initial_wallet = 1000
 final_wallet = compute_buy_and_sell_gains(initial_wallet, rates, buy_and_sell_points)
 
 # Affichage des résultats
 print("Date de début:", date_start, "avec un portefeuille de", str(round(initial_wallet, 2)) + "$.")
 print("Date de fin:", date_end, "avec un portefeuille de", str(round(final_wallet, 2)) + "$.")
+
+if final_wallet > initial_wallet:
+    percent = (final_wallet - initial_wallet) * 100 / initial_wallet
+    print("Soit un gain de", str(round(percent, 2)) + "%")
+else:
+    percent = (initial_wallet - final_wallet) * 100 / initial_wallet
+    print("Soit une perte de", str(round(percent, 2)) + "%")
 
 # Calcul des moyennes mobiles pour l'affichage. ma20 représente la moyenne mobile sur 20 jours et ma100 sur 100 jours
 ma20 = compute_moving_average_for_rates_data(rates, 20)
