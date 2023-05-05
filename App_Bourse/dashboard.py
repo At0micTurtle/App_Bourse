@@ -42,7 +42,7 @@ for ma_interval in ma_intervals:
 # Calcul des points d'achat et de vente
 buy_and_sell_points = calculate_buy_and_sell_points_from_ma(ma_list[0][0], ma_list[1][0], 1)
 
-st.write("## Calcul des gains et des pertes")
+st.write("## Calcul des gains ou des pertes")
 
 # Calcul des gains
 initial_wallet = 1000
