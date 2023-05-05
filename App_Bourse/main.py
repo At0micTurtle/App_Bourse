@@ -40,12 +40,8 @@ initial_wallet = 1000
 final_wallet = calculate_buy_and_sell_gains(initial_wallet, rates, buy_and_sell_points)
 
 # Affichage des résultats
-print(
-    "Date de début:", date_start, "avec un portefeuille de", f"{str(round(initial_wallet, 2))}$.",
-)
-print(
-    "Date de fin:", date_end, "avec un portefeuille de", f"{str(round(final_wallet, 2))}$.",
-)
+print("Date de début:", date_start, "avec un portefeuille de", f"{str(round(initial_wallet, 2))}$.",)
+print("Date de fin:", date_end, "avec un portefeuille de", f"{str(round(final_wallet, 2))}$.",)
 
 if final_wallet > initial_wallet:
     percent = (final_wallet - initial_wallet) * 100 / initial_wallet

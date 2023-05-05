@@ -5,7 +5,6 @@ Descritpion: Programme principal du dashboard streamlit
 Révisé le: 04/05/2023
 """
 
-
 import streamlit as st
 import matplotlib.pyplot as plt
 
