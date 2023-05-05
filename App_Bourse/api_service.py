@@ -2,7 +2,7 @@
 Créer le 29/04/2023
 Par: Carl Trépanier
 Descritpion: Prise de données de l'API
-Révisé le: 03/05/2023
+Révisé le: 04/05/2023
 """
 
 import requests
@@ -34,7 +34,7 @@ def api_get_exchange_rates(assets, start_date, end_date):
     start_date_str = start_date.strftime("%Y-%m-%d")
     end_date_str = (end_date + timedelta(1)).strftime("%Y-%m-%d")
 
-    url = BASE_URL + "v1/exchangerate/" + assets + "/history?period_id=1DAY&time_start=" + start_date_str + "T00:00:00&time_end=" + end_date_str + "T00:00:00"
+    url = f"{BASE_URL}v1/exchangerate/{assets}/history?period_id=1DAY&time_start={start_date_str}T00:00:00&time_end={end_date_str}T00:00:00"
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         data = json.loads(response.text)
@@ -42,7 +42,7 @@ def api_get_exchange_rates(assets, start_date, end_date):
         print()
         return data
     else:
-        print("Error with status code: {}".format(response.status_code))
+        print(f"Error with status code: {response.status_code}")
         return None
 
 # Les dates de début et de fin peuvent être séparées de plus de 100 jours
@@ -62,11 +62,11 @@ def rate_is_inconsistente(rate):
     vmax = value * 10
     if not vmin <= rate["rate_close"] <= vmax:
         return True
-    if not vmin <= rate["rate_high"] <= vmax:
-        return True
-    if not vmin <= rate["rate_low"] <= vmax:
-        return True
-    return False
+    return (
+        not vmin <= rate["rate_low"] <= vmax
+        if vmin <= rate["rate_high"] <= vmax
+        else True
+    )
 
 # Filtrage des données inconsistantes
 def filter_inconsistent_rate_values(input_rates):
@@ -77,22 +77,16 @@ def filter_inconsistent_rate_values(input_rates):
         rate = input_rates[i]
         if rate_is_inconsistente(rate):
             reference_rate = None
-            if i > 0:
-                reference_rate = input_rates[i - 1]
-            else:
-                reference_rate = input_rates[i + 1]
+            reference_rate = input_rates[i - 1] if i > 0 else input_rates[i + 1]
             patched_rate = rate
             patched_rate["rate_open"] = reference_rate["rate_open"]
             patched_rate["rate_close"] = reference_rate["rate_close"]
             patched_rate["rate_high"] = reference_rate["rate_high"]
             patched_rate["rate_low"] = reference_rate["rate_low"]
-            filtered_rates.append(rate)
-        else:
-            filtered_rates.append(rate)
+        filtered_rates.append(rate)
     return filtered_rates
 
 # Retourne les données filtrées
 def api_get_exchange_filtered_rates_extended(assets, start_date, end_date):
     rates = api_get_exchange_rates_extended(assets, start_date, end_date)
-    filtered_rates = filter_inconsistent_rate_values(rates)
-    return filtered_rates
+    return filter_inconsistent_rate_values(rates)

@@ -2,11 +2,11 @@
 Créer le 29/04/2023
 Par: Carl Trépanier
 Descritpion: Fonctions de traitement des données
-Révisé le: 03/05/2023
+Révisé le: 04/05/2023
 """
 
-# Calcul du taux de change moyen sur une période donnée
-def compute_moving_average_for_rates_data(rates, nb_days_interval):
+# Calcul de la moyenne mobile sur une période donnée
+def calculate_mobile_average_for_rates_data(rates, nb_days_interval):
     sum = 0
     averages = []
 
@@ -23,7 +23,7 @@ def compute_moving_average_for_rates_data(rates, nb_days_interval):
     return averages
 
 # Calcul des points d'achat et de vente à partir de deux moyennes mobiles
-def compute_buy_and_sell_points_from_ma(short_ma, long_ma, threshold_percent=0):
+def calculate_buy_and_sell_points_from_ma(short_ma, long_ma, threshold_percent=0):
     buy_mode = True
     points = []
 
@@ -37,22 +37,20 @@ def compute_buy_and_sell_points_from_ma(short_ma, long_ma, threshold_percent=0):
             if short_ma_value > long_ma_value * multiplicateur:
                 points.append((date_str, buy_mode))
                 buy_mode = False
-        else: # On cherche un point de vente
-            if short_ma_value < long_ma_value / multiplicateur:
-                points.append((date_str, buy_mode))
-                buy_mode = True
+        elif short_ma_value < long_ma_value / multiplicateur: # On cherche un point de vente
+            points.append((date_str, buy_mode))
+            buy_mode = True
 
     return points
 
 # Récupération du taux de change pour une date donnée
 def get_rate_value_for_date_str(rates, date_str):
-    for rate in rates:
-        if rate["date"] == date_str:
-            return rate["value"]
-    return None
+    return next(
+        (rate["value"] for rate in rates if rate["date"] == date_str), None
+    )
 
 # Calcul des gains à partir des points d'achat et de vente
-def compute_buy_and_sell_gains(initial_wallet, rates, buy_and_sell_points):
+def calculate_buy_and_sell_gains(initial_wallet, rates, buy_and_sell_points):
     current_wallet = initial_wallet
     last_wallet = 0
     shares = 0
@@ -63,20 +61,20 @@ def compute_buy_and_sell_gains(initial_wallet, rates, buy_and_sell_points):
     for point in buy_and_sell_points:
         rate_value = get_rate_value_for_date_str(rates, point[0])
         if point[1]:
-            print("Le", point[0] + ", j'achète pour", str(round(current_wallet, 2)) + "$.")
+            print("Le", f"{point[0]}, j'achète pour", f"{str(round(current_wallet, 2))}$.")
             shares = current_wallet / rate_value
             last_wallet = current_wallet
             current_wallet = 0
         else:
             current_wallet = shares * rate_value
             shares = 0
-            print("Le", point[0] + ", je vend pour", str(round(current_wallet, 2)) + "$.")
+            print("Le", f"{point[0]}, je vend pour", f"{str(round(current_wallet, 2))}$.")
             if current_wallet > last_wallet:
                 percent = (current_wallet - last_wallet) * 100 / last_wallet
-                print("Soit un gain de", str(round(percent, 2)) + "%.")
+                print("Soit un gain de", f"{str(round(percent, 2))}%.")
             else:
                 percent = (last_wallet - current_wallet) * 100 / last_wallet
-                print("Soit une perte de", str(round(percent, 2)) + "%.")
+                print("Soit une perte de", f"{str(round(percent, 2))}%.")
             print()
 
     return current_wallet

@@ -13,23 +13,21 @@ from os import path
 
 # À partir de la liste des données de taux de change, on crée une liste de dictionnaires
 def convert_rates_to_date_value_format(rates_data):
-    rates_date_value_format = []
-    for rate in rates_data:
-        rates_date_value_format.append({"date": rate["time_period_start"][:10], "value": rate["rate_close"]})
-    return rates_date_value_format
+    return [
+        {"date": rate["time_period_start"][:10], "value": rate["rate_close"]}
+        for rate in rates_data
+    ]
 
 # On sauvegarde les données de taux de change dans un fichier
 def save_rates_data_to_file(filename, rates_data):
     json_data = json.dumps(rates_data)
-    f = open(filename, "w")
-    f.write(json_data)
-    f.close()
+    with open(filename, "w") as f:
+        f.write(json_data)
 
 # On charge les données de taux de change depuis un fichier
 def load_json_data_from_file(filename):
-    f = open(filename, "r")
-    json_data = f.read()
-    f.close()
+    with open(filename, "r") as f:
+        json_data = f.read()
     return json_data
 
 # On récupère les données de taux de change depuis l'API CoinAPI et on les sauvegarde dans un fichier
@@ -58,7 +56,7 @@ def get_and_manage_rates_data(assets, date_start, date_end):
 
         # Calcul du nombre de jours entre la date de début demandée et la date de début des données sauvegardées
         nb_days_start = (saved_data_date_start - date_start).days
-        
+
         # Si la date de début demandée est antérieure à la date de début des données sauvegardées, on récupère les données manquantes
         if nb_days_start > 0:
             print("On rajoute les données à gauche: ", date_start, saved_data_date_start - timedelta(1))
@@ -79,13 +77,11 @@ def get_and_manage_rates_data(assets, date_start, date_end):
             rates += rates_end_date_value
         elif nb_days_end < 0:
             exclude_nb_days_end = -nb_days_end
-        
-        save_rates_data_to_file(data_filename, rates)
+
     else:
         rates_api = api_get_exchange_filtered_rates_extended(assets, date_start, date_end)
-        rates = convert_rates_to_date_value_format(rates_api)    
-        save_rates_data_to_file(data_filename, rates)
-
+        rates = convert_rates_to_date_value_format(rates_api)
+    save_rates_data_to_file(data_filename, rates)
     if exclude_nb_days_start > 0:
         rates = rates[exclude_nb_days_start:]
 
