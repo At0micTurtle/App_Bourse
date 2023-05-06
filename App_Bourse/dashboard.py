@@ -72,6 +72,9 @@ st.write("## Affichage du graphique")
 
 # Affichage du graphique
 fig, ax = plt.subplots()
+fig.set_figheight(6)
+fig.set_figwidth(10)
+
 ax.set_title("Tableau du taux de change", fontdict = {'family':'serif','color':'blue','size':14})
 ax.set_ylabel(assets, fontdict = {'family':'serif','color':'blue','size':14})
 ax.set_xlabel("Dates", fontdict = {'family':'serif','color':'blue','size':14})
