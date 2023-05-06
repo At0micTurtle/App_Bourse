@@ -59,6 +59,7 @@ rates_dates = [datetime.strptime(rate["date"], "%Y-%m-%d") for rate in rates]
 rates_values = [rate["value"] for rate in rates]
 
 plt.ylabel(assets)
+plt.xlabel("Dates")
 plt.plot(rates_dates, rates_values)
 
 # Affichage des moyennes mobiles
