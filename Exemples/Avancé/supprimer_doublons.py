@@ -7,7 +7,6 @@ Supprimer les doublons
 
 exists
 set
-
 """
 
 from tools import generate_random_list
