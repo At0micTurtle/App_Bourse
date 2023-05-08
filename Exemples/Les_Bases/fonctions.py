@@ -57,12 +57,13 @@ def afficher_infos(nom, age):
     print("Vous vous appelez " + nom + " et vous avez " + str(age) + " ans.")
     print("L'an prochain, vous aurez " + str(age+1) + " ans.")
 
-    # == egal
-    # != différent
-    # < inférieur
-    # > supérieur
-    # <= inférieur ou égal
-    # >= supérieur ou égal
+    # Les conditions
+        # == egal
+        # != différent
+        # < inférieur
+        # > supérieur
+        # <= inférieur ou égal
+        # >= supérieur ou égal
     
     # Affiche si l'utilisateur est majeur ou mineur
     if age >= 18:
