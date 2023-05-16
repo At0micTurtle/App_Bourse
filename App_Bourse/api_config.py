@@ -5,5 +5,5 @@ Descritpion: Configuration de l'API
 Révisé le: 
 """
 
-API_KEY = "BFE26402-E897-4BC0-9A3C-930BF4180EF3"
+API_KEY = ""
 BASE_URL = "https://rest.coinapi.io/"
